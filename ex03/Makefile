@@ -1,9 +1,10 @@
-NAME = animals
+NAME = Materia
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp AAnimal.cpp Dog.cpp Cat.cpp Brain.cpp
+SRCS = main.cpp AMateria.cpp Character.cpp Ice.cpp Cure.cpp MateriaSource.cpp
+
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)

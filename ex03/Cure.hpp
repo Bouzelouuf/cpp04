@@ -2,17 +2,18 @@
 #define CURE_HPP
 
 #include <iostream>
+#include "AMateria.hpp"
 #include "ICharacter.hpp"
 
 class Cure : public AMateria
 {
-    private:
+    public:
     Cure();
     Cure(const Cure &copy);
-    ~Cure();
-    Cure &operator=(const Cure &c);
-    AMateria *Cure::Clone();
-    Cure::Use(ICharacter& target);
+    virtual ~Cure();
+    Cure &operator=(const Cure &other);
+    virtual AMateria *clone()const;
+    virtual void use(ICharacter& target);
 };
 
 #endif

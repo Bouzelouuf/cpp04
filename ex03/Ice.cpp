@@ -1,3 +1,5 @@
+#include "Ice.hpp"
+
 Ice::Ice(void): AMateria("Ice")
 {
 	std::cout << "Ice created with default constructor" << std::endl;
@@ -13,18 +15,19 @@ Ice::Ice(Ice const &copy): AMateria(copy)
 	std::cout << "Ice copied" << std::endl;
 }
 
-Ice const	&Ice::operator=(const Ice &copy)
+Ice &Ice::operator=(const Ice &other)
 {
-	this->_type = copy._type;
-	return (*this);
+    if (this != &other)
+        AMateria::operator=(other);
+    return (*this);
 }
 
-AMateria *Ice::Clone() const
+AMateria *Ice::clone() const
 {
     return (new Ice(*this));
 }
 
-void Ice::Use(ICharacter& target)
+void Ice::use(ICharacter& target)
 {
-    std::cout<< "* heals " target.name " 's wounds*" << std::endl;
+    std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
 }
