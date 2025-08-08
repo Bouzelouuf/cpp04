@@ -12,11 +12,13 @@ Cat::Cat(std::string type) : Animal(type)
 
 Cat::Cat(const Cat &copy) : Animal(copy)
 {
+	brain = new Brain(*copy.brain);
 	std::cout << "Cat Copy Constructor called" << std::endl;
 }
 
 Cat::~Cat()
 {
+	delete brain;
 	std::cout << "Cat Destructor called" << std::endl;
 
 }
@@ -27,6 +29,8 @@ Cat &Cat::operator=(const Cat &other)
 	if (this == &other)
 		return (*this);
 	Animal::operator=(other);
+	delete brain;
+    brain = new Brain(*other.brain);
 	return (*this);
 }
 

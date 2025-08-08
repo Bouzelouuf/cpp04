@@ -67,6 +67,7 @@ void MateriaSource::learnMateria(AMateria *m)
 		if (templates[i] == NULL)
 		{
 			templates[i] = m->clone();
+			delete m;
 			return ;
 		}
 	}
