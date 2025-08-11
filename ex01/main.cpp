@@ -30,10 +30,10 @@ int main()
     
     std::cout << "\n=== TEST COPIE PROFONDE ===" << std::endl;
     
-    Dog basic;
-    {
-        Dog tmp = basic;
-    }
+    Dog dog1;
+    Dog dog2 = dog1;  // Copy constructor
+    Dog dog3;
+    dog3 = dog1;  
     
     return 0;
 }

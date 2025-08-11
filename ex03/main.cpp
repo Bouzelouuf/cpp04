@@ -68,19 +68,19 @@ int main()
         char1->equip(new Cure());
         
         std::cout << "\nCopie character1 -> character2:" << std::endl;
-        Character* char2 = new Character(*char1);  // Copy constructor
+        Character* char2 = new Character(*char1);
         
         std::cout << "\nTest avant suppression char1:" << std::endl;
         Character bob("Bob");
-        char1->use(0, bob);  // Ice
-        char2->use(0, bob);  // Ice (copié)
+        char1->use(0, bob);
+        char2->use(0, bob);
         
         std::cout << "\nSuppression char1 (char2 doit rester intact):" << std::endl;
         delete char1;
         
         std::cout << "Test char2 après suppression char1:" << std::endl;
-        char2->use(0, bob);  // ✅ Doit marcher (copie profonde)
-        char2->use(1, bob);  // ✅ Doit marcher (copie profonde)
+        char2->use(0, bob);
+        char2->use(1, bob);
         
         delete char2;
     }
@@ -96,15 +96,15 @@ int main()
         
         std::cout << "Avant assignation:" << std::endl;
         Character target("Target");
-        char1.use(0, target);  // Alice Ice
-        char2.use(0, target);  // Bob Ice
+        char1.use(0, target);
+        char2.use(0, target);
         
         std::cout << "\nAssignation char2 = char1:" << std::endl;
-        char2 = char1;  // Opérateur d'assignation
+        char2 = char1;
         
         std::cout << "Après assignation:" << std::endl;
-        char2.use(0, target);  // Devrait être Alice Ice
-        char2.use(1, target);  // Devrait être Alice Cure
+        char2.use(0, target);
+        char2.use(1, target);
     }
 
     std::cout << "\n=== TEST 4: MATERIASOURCE DEEP COPY ===" << std::endl;
@@ -141,18 +141,21 @@ int main()
         char1.equip(new Cure());
         char1.equip(new Ice());
         char1.equip(new Cure());
-        char1.equip(new Ice());  // 5ème - devrait être ignorée ou supprimée
-        
+        char1.equip(new Ice());
+
+
         std::cout << "Test index invalides:" << std::endl;
         Character target("Target");
-        char1.use(-1, target);  // Index négatif
-        char1.use(4, target);   // Index trop grand
-        char1.use(10, target);  // Index très grand
+        char1.use(-1, target);
+        char1.use(4, target);
+        char1.use(10, target);
         
         std::cout << "Test unequip:" << std::endl;
-        char1.unequip(0);  // Retire la première materia
-        char1.use(0, target);  // Devrait ne rien faire ou crasher?
-        
+
+		AMateria *spellIce = char1.getMateria(0);
+		char1.unequip(0);
+		delete (spellIce);
+        char1.use(0, target);
         std::cout << "Test unequip index invalide:" << std::endl;
         char1.unequip(-1);
         char1.unequip(10);
@@ -171,7 +174,7 @@ int main()
             delete unknown;
         }
         
-        AMateria* empty = src.createMateria("");  // String vide
+        AMateria* empty = src.createMateria("");
         if(empty == NULL) {
             std::cout << "createMateria('') retourne NULL ✅" << std::endl;
         } else {
@@ -189,17 +192,17 @@ int main()
         src.learnMateria(new Cure());
         src.learnMateria(new Ice());
         src.learnMateria(new Cure());
-        src.learnMateria(new Ice());  // 5ème - que fait votre code?
+        src.learnMateria(new Ice());
     }
 
     std::cout << "\n=== TEST 8: GESTION MÉMOIRE UNEQUIP ===" << std::endl;
     {
         Character* char1 = new Character("Alice");
         char1->equip(new Ice());
-        
+        AMateria *spellIce = char1->getMateria(0);
         std::cout << "Unequip sans récupération (que devient la Materia?):" << std::endl;
         char1->unequip(0);  // Où va la Materia?
-        
+        delete(spellIce);
         delete char1;
         // Y a-t-il un leak de la Materia unequip?
     }

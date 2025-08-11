@@ -74,7 +74,7 @@ void Character::unequip(int idx)
 {
 	if (idx >= 0 && idx <= 3 && inventory[idx] != NULL)
 	{
-		delete inventory[idx];
+		//delete inventory[idx];
 		inventory[idx] = NULL;
 	}
 }
@@ -83,4 +83,11 @@ void Character::use(int idx, ICharacter &target)
 {
 	if (idx >= 0 && idx <= 3 && inventory[idx] != NULL)
 		inventory[idx]->use(target);
+}
+
+AMateria* Character::getMateria(const int idx ) const
+{
+	if (idx >= 0 && idx <= 3)
+		return (inventory[idx]);
+	return (NULL);
 }
