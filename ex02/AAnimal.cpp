@@ -10,10 +10,9 @@ AAnimal::AAnimal(std::string type) : type(type)
 	std::cout << "AAnimal parameter constructor called" << std::endl;
 }
 
-AAnimal::AAnimal(const AAnimal &copy)
+AAnimal::AAnimal(const AAnimal &copy) : type(copy.type)
 {
 	std::cout << "AAnimal copy constructor called" << std::endl;
-	*this = copy;
 }
 AAnimal::~AAnimal()
 {
@@ -35,7 +34,7 @@ std::string AAnimal::getType() const
 	return(type);
 }
 
-void AAnimal::makeSound() const
-{
-	std::cout << "AAnimal make no sound" <<std::endl;
-}
+// void AAnimal::makeSound() const
+// {
+// 	std::cout << "AAnimal make no sound" <<std::endl;
+// }

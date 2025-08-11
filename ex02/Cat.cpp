@@ -1,22 +1,24 @@
 #include "Cat.hpp"
 
-Cat::Cat() : AAnimal("Cat")
+Cat::Cat() : AAnimal("Cat") , brain(new Brain()) 
 {
 	std::cout << "Cat Default Constructor called" << std::endl;
 }
 
-Cat::Cat(std::string type) : AAnimal(type)
+Cat::Cat(std::string type) : AAnimal(type), brain(new Brain()) 
 {
 	std::cout << "Cat Parameter Constructor called" << std::endl;
 }
 
 Cat::Cat(const Cat &copy) : AAnimal(copy)
 {
+	brain = new Brain(*copy.brain);
 	std::cout << "Cat Copy Constructor called" << std::endl;
 }
 
 Cat::~Cat()
 {
+	delete(brain);
 	std::cout << "Cat Destructor called" << std::endl;
 
 }

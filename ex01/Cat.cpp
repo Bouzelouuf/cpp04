@@ -1,11 +1,11 @@
 #include "Cat.hpp"
 
-Cat::Cat() : Animal("Cat")
+Cat::Cat() : Animal("Cat") , brain(new Brain())
 {
 	std::cout << "Cat Default Constructor called" << std::endl;
 }
 
-Cat::Cat(std::string type) : Animal(type)
+Cat::Cat(std::string type) : Animal(type) , brain(new Brain())
 {
 	std::cout << "Cat Parameter Constructor called" << std::endl;
 }

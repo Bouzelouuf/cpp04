@@ -15,7 +15,7 @@ class Cat : public AAnimal
 		Cat();
 		Cat(std::string type);
 		Cat(const Cat &copy);
-		~Cat();
+		virtual ~Cat();
 		Cat &operator=(const Cat &other);
 		void makeSound()const ; // override que pour c++11
 };

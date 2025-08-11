@@ -1,12 +1,12 @@
 #include "Dog.hpp"
 #include "Animal.hpp"
 
-Dog::Dog() : Animal("Dog")
+Dog::Dog() : Animal("Dog") , brain(new Brain())
 {
 	std::cout << "Dog Default Constructor called" << std::endl;
 }
 
-Dog::Dog(std::string type) : Animal(type)
+Dog::Dog(std::string type) : Animal(type) , brain(new Brain())
 {
 	std::cout << "Dog Parameter Constructor called" << std::endl;
 }

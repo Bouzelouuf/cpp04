@@ -14,7 +14,7 @@ class Dog : public AAnimal
 		Dog();
 		Dog(std::string type);
 		Dog(const Dog &copy);
-		~Dog();
+		virtual ~Dog();
 		Dog &operator=(const Dog &other);
 		void makeSound() const; // override que pour c++11
 };

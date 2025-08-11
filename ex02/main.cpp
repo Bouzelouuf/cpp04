@@ -1,39 +1,101 @@
-#include "Brain.hpp"
 #include "AAnimal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
+#include "Brain.hpp"
 #include <iostream>
 
-#include <iostream>
-
-int main() {
-    // Création d'objets Dog et Cat
-    AAnimal* dog1 = new Dog();
-    AAnimal* cat1 = new Cat();
-
-    // Utilisation des pointeurs pour appeler makeSound
-    dog1->makeSound(); // Devrait afficher "ouaf ouaf ouaf"
-    cat1->makeSound(); // Devrait afficher "miaou miaou miaou"
-
-    // Test de la copie profonde
-    AAnimal* dog2 = new Dog(*dynamic_cast<Dog*>(dog1)); // Utilisation du constructeur de copie
-    AAnimal* cat2 = new Cat(*dynamic_cast<Cat*>(cat1)); // Utilisation du constructeur de copie
-
-    // Vérification des sons des objets copiés
-    dog2->makeSound(); // Devrait afficher "ouaf ouaf ouaf"
-    cat2->makeSound(); // Devrait afficher "miaou miaou miaou"
-
-    // Vérification des types
-    std::cout << "Dog1 type: " << dog1->getType() << std::endl; // Devrait afficher "Dog"
-    std::cout << "Dog2 type: " << dog2->getType() << std::endl; // Devrait afficher "Dog"
-    std::cout << "Cat1 type: " << cat1->getType() << std::endl; // Devrait afficher "Cat"
-    std::cout << "Cat2 type: " << cat2->getType() << std::endl; // Devrait afficher "Cat"
-
-    // Libération de la mémoire
-    delete dog1; // Appelle le destructeur de Dog
-    delete cat1; // Appelle le destructeur de Cat
-    delete dog2; // Appelle le destructeur de Dog
-    delete cat2; // Appelle le destructeur de Cat
-
+int main()
+{
+    std::cout << "=== TEST 1: POLYMORPHISME AVEC CLASSES ABSTRAITES ===" << std::endl;
+    {
+        AAnimal* dog = new Dog();
+        AAnimal* cat = new Cat();
+        
+        std::cout << "Types: " << dog->getType() << ", " << cat->getType() << std::endl;
+        dog->makeSound();
+        cat->makeSound();
+        
+        delete dog;
+        delete cat;
+    }
+    
+    std::cout << "\n=== TEST 2: COPIE PROFONDE AVEC OBJETS (stack) ===" << std::endl;
+    {
+        std::cout << "Création cat1:" << std::endl;
+        Cat cat1;
+        
+        std::cout << "\nCopie cat1 -> cat2:" << std::endl;
+        Cat cat2 = cat1;
+        
+        std::cout << "\nTest sons (doivent être identiques):" << std::endl;
+        cat1.makeSound();
+        cat2.makeSound();
+        
+        std::cout << "\nDestruction automatique:" << std::endl;
+    }
+    
+    std::cout << "\n=== TEST 3: COPIE PROFONDE AVEC POINTEURS ===" << std::endl;
+    {
+        Cat* cat1 = new Cat();
+        Cat* cat2 = new Cat(*cat1);
+        
+        std::cout << "Sons avant suppression cat1:" << std::endl;
+        cat1->makeSound();
+        cat2->makeSound();
+        
+        std::cout << "\nSuppression cat1 (cat2 doit rester intact):" << std::endl;
+        delete cat1;
+        
+        std::cout << "Son de cat2 après suppression cat1:" << std::endl;
+        cat2->makeSound();
+        
+        delete cat2;
+    }
+    
+    std::cout << "\n=== TEST 4: OPÉRATEUR D'ASSIGNATION ===" << std::endl;
+    {
+        Cat cat1;
+        Cat cat2;
+        
+        std::cout << "Avant assignation:" << std::endl;
+        cat1.makeSound();
+        cat2.makeSound();
+        
+        std::cout << "\nAssignation cat1 = cat2:" << std::endl;
+        cat1 = cat2;
+        
+        std::cout << "Après assignation:" << std::endl;
+        cat1.makeSound();
+        cat2.makeSound();
+    }
+    
+    std::cout << "\n=== TEST 5: ARRAY D'ANIMAUX (comme demandé dans le sujet) ===" << std::endl;
+    {
+        const int size = 6;
+        AAnimal* animals[size];
+        
+        for(int i = 0; i < size; i++) {
+            if(i < size/2)
+                animals[i] = new Dog();
+            else
+                animals[i] = new Cat();
+        }
+        
+        std::cout << "\nTous les animaux font du bruit:" << std::endl;
+        for(int i = 0; i < size; i++) {
+            std::cout << i << ": ";
+            animals[i]->makeSound();
+        }
+        
+        std::cout << "\nDestruction du tableau:" << std::endl;
+        for(int i = 0; i < size; i++) {
+            delete animals[i];
+        }
+    }
+    
+    std::cout << "\n=== TEST 6: TENTATIVE D'INSTANCIATION ABSTRAITE (doit pas compiler) ===" << std::endl;
+    // AAnimal abstract;  // decomment pour voir
+    std::cout << "AAnimal ne peut pas être instanciée (test désactivé)" << std::endl;
+    
     return 0;
 }

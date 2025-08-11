@@ -26,7 +26,7 @@ int main()
     const WrongAnimal* wrongCat = new WrongCat();
     
     wrongMeta->makeSound();
-    wrongCat->makeSound(); // Should make WrongAnimal sound
+    wrongCat->makeSound(); // should make wronganimal sound
     
     delete wrongMeta;
     delete wrongCat;

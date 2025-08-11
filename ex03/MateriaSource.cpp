@@ -64,6 +64,14 @@ void MateriaSource::learnMateria(AMateria *m)
 		return ;
 	for (int i = 0; i < 4; i++)
 	{
+		if (templates[i] != NULL && templates[i]->getType() == m->getType())
+		{
+			delete (m);
+			return;
+		}
+	}
+	for (int i = 0; i < 4; i++)
+	{
 		if (templates[i] == NULL)
 		{
 			templates[i] = m->clone();

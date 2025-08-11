@@ -10,10 +10,9 @@ Animal::Animal(std::string type) : type(type)
 	std::cout << "Animal parameter constructor called" << std::endl;
 }
 
-Animal::Animal(const Animal &copy)
+Animal::Animal(const Animal &copy) : type (copy.type)
 {
 	std::cout << "Animal copy constructor called" << std::endl;
-	*this = copy;
 }
 Animal::~Animal()
 {
