@@ -31,7 +31,7 @@ int main()
     std::cout << "\n=== TEST COPIE PROFONDE ===" << std::endl;
     
     Dog dog1;
-    Dog dog2 = dog1;  // Copy constructor
+    Dog dog2 = dog1;
     Dog dog3;
     dog3 = dog1;  
     
